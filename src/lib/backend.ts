@@ -8,7 +8,7 @@ type nodeTransition = {
 	trID: string;
 };
 
-type Node = {
+export type Node = {
 	x: number;
 	y: number;
 	radius: number;

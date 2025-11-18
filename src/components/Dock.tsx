@@ -5,6 +5,7 @@ import {
 	Settings,
 	Cable,
 	HardDriveDownload,
+	ArrowRightFromLine,
 	BookMarked,
 } from "lucide-react";
 import clsx from "clsx";
@@ -14,7 +15,9 @@ import {
 	alert,
 	arrowStates,
 	saveFSMAtom,
+	Nodes,
 } from "../lib/backend";
+import type { Node } from "../lib/backend";
 import { useAtomValue, useSetAtom } from "jotai";
 
 const Dock = () => {
@@ -33,6 +36,9 @@ const Dock = () => {
 
 	const setSaveFSM = useSetAtom(saveFSMAtom);
 	const saveFSM = useAtomValue(saveFSMAtom);
+
+	// node list
+	const nodeList: Node[] = useAtomValue(Nodes);
 
 	// Dock Items
 	// Each item has a name, icon, and onclick function
@@ -140,6 +146,27 @@ const Dock = () => {
 			),
 			onclick: () => setSaveFSM(!saveFSM),
 		},
+		{
+			name: "Export data",
+			condition: [true, false], // the syntax pattern we use here seems to be [!selected, selected]
+			icon: (
+				<ArrowRightFromLine
+					size={DockIconSize}
+					color={DockIconColor}
+					className="pointer-events-none"
+				/>
+			),
+			onclick: () => {			
+				const simplifiedJsonData = nodeList.map(node => ({
+					name: node.name,
+					id: node.id,
+					type: node.type,		
+					transitions: node.transitions,
+				}));
+				window.alert(JSON.stringify(simplifiedJsonData));
+			},
+		},
+
 
 		{
 			name: "Welcome",
