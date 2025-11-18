@@ -17,6 +17,7 @@ import {
 	saveFSMAtom,
 	Nodes,
 } from "../lib/backend";
+import type { Node } from "../lib/backend";
 import { useAtomValue, useSetAtom } from "jotai";
 
 const Dock = () => {
@@ -37,7 +38,7 @@ const Dock = () => {
 	const saveFSM = useAtomValue(saveFSMAtom);
 
 	// node list
-	const nodeList = useAtomValue(Nodes);
+	const nodeList: Node[] = useAtomValue(Nodes);
 
 	// Dock Items
 	// Each item has a name, icon, and onclick function
@@ -160,6 +161,7 @@ const Dock = () => {
 					name: node.name,
 					id: node.id,
 					type: node.type,		
+					transitions: node.transitions,
 				}));
 				window.alert(JSON.stringify(simplifiedJsonData));
 			},
