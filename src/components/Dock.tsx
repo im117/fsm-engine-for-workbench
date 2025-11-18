@@ -148,7 +148,7 @@ const Dock = () => {
 		},
 		{
 			name: "Export data",
-			condition: [false, true],
+			condition: [true, false], // the syntax pattern we use here seems to be [!selected, selected]
 			icon: (
 				<ArrowRightFromLine
 					size={DockIconSize}
@@ -156,7 +156,7 @@ const Dock = () => {
 					className="pointer-events-none"
 				/>
 			),
-			onclick: () => {
+			onclick: () => {			
 				const simplifiedJsonData = nodeList.map(node => ({
 					name: node.name,
 					id: node.id,
